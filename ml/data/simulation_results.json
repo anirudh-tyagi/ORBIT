@@ -1,0 +1,34 @@
+{
+  "alpha_0": {
+    "alpha": 0,
+    "pdr_mean": 0.9865,
+    "pdr_std": 0.0012,
+    "latency_mean": 87.93,
+    "latency_std": 0.92,
+    "num_runs": 5
+  },
+  "alpha_10": {
+    "alpha": 10,
+    "pdr_mean": 0.9849,
+    "pdr_std": 0.0024,
+    "latency_mean": 88.3,
+    "latency_std": 0.69,
+    "num_runs": 5
+  },
+  "alpha_20": {
+    "alpha": 20,
+    "pdr_mean": 0.9681,
+    "pdr_std": 0.005,
+    "latency_mean": 95.13,
+    "latency_std": 1.01,
+    "num_runs": 5
+  },
+  "alpha_30": {
+    "alpha": 30,
+    "pdr_mean": 0.9694,
+    "pdr_std": 0.0048,
+    "latency_mean": 95.14,
+    "latency_std": 1.54,
+    "num_runs": 5
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "name": "orbit",
+  "version": "2.0.0",
+  "description": "ORBIT — Optimized Routing with Blockchain and Intelligent Trust for IoT Networks",
+  "main": "Server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node Server.js",
+    "start:edge": "node EdgeNode.js",
+    "start:block": "node BlockNode.js",
+    "start:node": "node IoTNode.js",
+    "start:node1": "node IoTNode.js 1",
+    "start:node2": "node IoTNode.js 2",
+    "start:node3": "node IoTNode.js 3",
+    "start:node4": "node IoTNode.js 4",
+    "start:node5": "node IoTNode.js 5",
+    "compile": "npx hardhat compile",
+    "deploy": "npx hardhat run scripts/deploy.cjs --network localhost",
+    "chain": "npx hardhat node",
+    "simulate": "ml/venv/bin/python ml/generate_synthetic_data.py",
+    "test": "npx hardhat test"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@chainsafe/bls": "^8.1.0",
+    "@openzeppelin/contracts": "^5.0.2",
+    "blake3": "^2.1.7",
+    "cors": "^2.8.5",
+    "elliptic": "^6.5.5",
+    "ethereumjs-abi": "^0.6.8",
+    "ethers": "^6.11.1",
+    "express": "^4.18.3",
+    "hash-wasm": "^4.11.0"
+  },
+  "devDependencies": {
+    "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+    "hardhat": "^2.21.0"
+  }
+}

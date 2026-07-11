@@ -1,0 +1,1226 @@
+[
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.5,
+            "timestamp": "2024-03-17T08:00:00",
+            "sensor_id": "sensor001"
+        },
+        "checksum_crc": "0x4F2A",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor001"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.0,
+            "timestamp": "2024-03-17T08:05:00",
+            "sensor_id": "sensor002"
+        },
+        "checksum_crc": "0x3E7B",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor002"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.8,
+            "timestamp": "2024-03-17T08:10:00",
+            "sensor_id": "sensor003"
+        },
+        "checksum_crc": "0x6A5C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor003"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.3,
+            "timestamp": "2024-03-17T08:15:00",
+            "sensor_id": "sensor004"
+        },
+        "checksum_crc": "0x819D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor004"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.6,
+            "timestamp": "2024-03-17T08:20:00",
+            "sensor_id": "sensor005"
+        },
+        "checksum_crc": "0xA13F",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor005"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.9,
+            "timestamp": "2024-03-17T08:25:00",
+            "sensor_id": "sensor006"
+        },
+        "checksum_crc": "0x2B1C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor006"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.7,
+            "timestamp": "2024-03-17T08:30:00",
+            "sensor_id": "sensor007"
+        },
+        "checksum_crc": "0x8C0D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor007"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.4,
+            "timestamp": "2024-03-17T08:35:00",
+            "sensor_id": "sensor008"
+        },
+        "checksum_crc": "0xDDBE",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor008"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.5,
+            "timestamp": "2024-03-17T08:00:00",
+            "sensor_id": "sensor001"
+        },
+        "checksum_crc": "0x4F2A",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor001"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.0,
+            "timestamp": "2024-03-17T08:05:00",
+            "sensor_id": "sensor002"
+        },
+        "checksum_crc": "0x3E7B",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor002"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.8,
+            "timestamp": "2024-03-17T08:10:00",
+            "sensor_id": "sensor003"
+        },
+        "checksum_crc": "0x6A5C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor003"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.3,
+            "timestamp": "2024-03-17T08:15:00",
+            "sensor_id": "sensor004"
+        },
+        "checksum_crc": "0x819D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor004"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.6,
+            "timestamp": "2024-03-17T08:20:00",
+            "sensor_id": "sensor005"
+        },
+        "checksum_crc": "0xA13F",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor005"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.9,
+            "timestamp": "2024-03-17T08:25:00",
+            "sensor_id": "sensor006"
+        },
+        "checksum_crc": "0x2B1C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor006"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.7,
+            "timestamp": "2024-03-17T08:30:00",
+            "sensor_id": "sensor007"
+        },
+        "checksum_crc": "0x8C0D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor007"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.4,
+            "timestamp": "2024-03-17T08:35:00",
+            "sensor_id": "sensor008"
+        },
+        "checksum_crc": "0xDDBE",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor008"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.0,
+            "timestamp": "2024-03-17T08:05:00",
+            "sensor_id": "sensor002"
+        },
+        "checksum_crc": "0x3E7B",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor002"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.8,
+            "timestamp": "2024-03-17T08:10:00",
+            "sensor_id": "sensor003"
+        },
+        "checksum_crc": "0x6A5C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor003"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.3,
+            "timestamp": "2024-03-17T08:15:00",
+            "sensor_id": "sensor004"
+        },
+        "checksum_crc": "0x819D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor004"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.6,
+            "timestamp": "2024-03-17T08:20:00",
+            "sensor_id": "sensor005"
+        },
+        "checksum_crc": "0xA13F",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor005"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.9,
+            "timestamp": "2024-03-17T08:25:00",
+            "sensor_id": "sensor006"
+        },
+        "checksum_crc": "0x2B1C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor006"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.7,
+            "timestamp": "2024-03-17T08:30:00",
+            "sensor_id": "sensor007"
+        },
+        "checksum_crc": "0x8C0D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor007"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.4,
+            "timestamp": "2024-03-17T08:35:00",
+            "sensor_id": "sensor008"
+        },
+        "checksum_crc": "0xDDBE",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor008"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.3,
+            "timestamp": "2024-03-17T08:15:00",
+            "sensor_id": "sensor004"
+        },
+        "checksum_crc": "0x819D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor004"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.6,
+            "timestamp": "2024-03-17T08:20:00",
+            "sensor_id": "sensor005"
+        },
+        "checksum_crc": "0xA13F",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor005"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.9,
+            "timestamp": "2024-03-17T08:25:00",
+            "sensor_id": "sensor006"
+        },
+        "checksum_crc": "0x2B1C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor006"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.7,
+            "timestamp": "2024-03-17T08:30:00",
+            "sensor_id": "sensor007"
+        },
+        "checksum_crc": "0x8C0D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor007"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.4,
+            "timestamp": "2024-03-17T08:35:00",
+            "sensor_id": "sensor008"
+        },
+        "checksum_crc": "0xDDBE",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor008"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.0,
+            "timestamp": "2024-03-17T08:05:00",
+            "sensor_id": "sensor002"
+        },
+        "checksum_crc": "0x3E7B",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor002"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.8,
+            "timestamp": "2024-03-17T08:10:00",
+            "sensor_id": "sensor003"
+        },
+        "checksum_crc": "0x6A5C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor003"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.3,
+            "timestamp": "2024-03-17T08:15:00",
+            "sensor_id": "sensor004"
+        },
+        "checksum_crc": "0x819D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor004"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.6,
+            "timestamp": "2024-03-17T08:20:00",
+            "sensor_id": "sensor005"
+        },
+        "checksum_crc": "0xA13F",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor005"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.9,
+            "timestamp": "2024-03-17T08:25:00",
+            "sensor_id": "sensor006"
+        },
+        "checksum_crc": "0x2B1C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor006"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.7,
+            "timestamp": "2024-03-17T08:30:00",
+            "sensor_id": "sensor007"
+        },
+        "checksum_crc": "0x8C0D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor007"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.4,
+            "timestamp": "2024-03-17T08:35:00",
+            "sensor_id": "sensor008"
+        },
+        "checksum_crc": "0xDDBE",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor008"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.3,
+            "timestamp": "2024-03-17T08:15:00",
+            "sensor_id": "sensor004"
+        },
+        "checksum_crc": "0x819D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor004"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.6,
+            "timestamp": "2024-03-17T08:20:00",
+            "sensor_id": "sensor005"
+        },
+        "checksum_crc": "0xA13F",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor005"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.9,
+            "timestamp": "2024-03-17T08:25:00",
+            "sensor_id": "sensor006"
+        },
+        "checksum_crc": "0x2B1C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor006"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.7,
+            "timestamp": "2024-03-17T08:30:00",
+            "sensor_id": "sensor007"
+        },
+        "checksum_crc": "0x8C0D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor007"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.4,
+            "timestamp": "2024-03-17T08:35:00",
+            "sensor_id": "sensor008"
+        },
+        "checksum_crc": "0xDDBE",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor008"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.0,
+            "timestamp": "2024-03-17T08:05:00",
+            "sensor_id": "sensor002"
+        },
+        "checksum_crc": "0x3E7B",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor002"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.8,
+            "timestamp": "2024-03-17T08:10:00",
+            "sensor_id": "sensor003"
+        },
+        "checksum_crc": "0x6A5C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor003"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.3,
+            "timestamp": "2024-03-17T08:15:00",
+            "sensor_id": "sensor004"
+        },
+        "checksum_crc": "0x819D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor004"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.6,
+            "timestamp": "2024-03-17T08:20:00",
+            "sensor_id": "sensor005"
+        },
+        "checksum_crc": "0xA13F",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor005"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.9,
+            "timestamp": "2024-03-17T08:25:00",
+            "sensor_id": "sensor006"
+        },
+        "checksum_crc": "0x2B1C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor006"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.5",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.7,
+            "timestamp": "2024-03-17T08:30:00",
+            "sensor_id": "sensor007"
+        },
+        "checksum_crc": "0x8C0D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor007"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.4,
+            "timestamp": "2024-03-17T08:35:00",
+            "sensor_id": "sensor008"
+        },
+        "checksum_crc": "0xDDBE",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor008"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.3,
+            "timestamp": "2024-03-17T08:15:00",
+            "sensor_id": "sensor004"
+        },
+        "checksum_crc": "0x819D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor004"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.6,
+            "timestamp": "2024-03-17T08:20:00",
+            "sensor_id": "sensor005"
+        },
+        "checksum_crc": "0xA13F",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor005"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.9,
+            "timestamp": "2024-03-17T08:25:00",
+            "sensor_id": "sensor006"
+        },
+        "checksum_crc": "0x2B1C",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor006"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.2",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.7,
+            "timestamp": "2024-03-17T08:30:00",
+            "sensor_id": "sensor007"
+        },
+        "checksum_crc": "0x8C0D",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor007"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.3",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.4,
+            "timestamp": "2024-03-17T08:35:00",
+            "sensor_id": "sensor008"
+        },
+        "checksum_crc": "0xDDBE",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor008"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.1",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 21.2,
+            "timestamp": "2024-03-17T08:40:00",
+            "sensor_id": "sensor009"
+        },
+        "checksum_crc": "0xF751",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor009"
+        }
+    },
+    {
+        "header": {
+            "source_address": "192.168.1.100",
+            "destination_address": "10.0.0.4",
+            "packet_length": 60
+        },
+        "payload": {
+            "temperature": 20.1,
+            "timestamp": "2024-03-17T08:45:00",
+            "sensor_id": "sensor010"
+        },
+        "checksum_crc": "0x9E02",
+        "protocol_specific": {
+            "protocol": "MQTT",
+            "topic": "/temperature/sensor010"
+        }
+    }
+]

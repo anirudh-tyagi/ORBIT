@@ -1,0 +1,991 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ORBIT — Network Intelligence Dashboard</title>
+    <meta name="description" content="Real-time monitoring dashboard for the ORBIT blockchain-based IoT routing framework">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.6.8/axios.min.js"></script>
+
+    <style>
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+        :root {
+            --bg-primary: #0a0e1a;
+            --bg-secondary: #111827;
+            --bg-card: rgba(17, 24, 39, 0.7);
+            --bg-glass: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --border-glow: rgba(99, 102, 241, 0.3);
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-indigo: #6366f1;
+            --accent-cyan: #06b6d4;
+            --accent-emerald: #10b981;
+            --accent-amber: #f59e0b;
+            --accent-rose: #f43f5e;
+            --accent-violet: #8b5cf6;
+            --gradient-primary: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #06b6d4 100%);
+            --gradient-card: linear-gradient(135deg, rgba(99,102,241,0.08) 0%, rgba(6,182,212,0.05) 100%);
+            --shadow-glow: 0 0 30px rgba(99, 102, 241, 0.15);
+            --radius: 16px;
+            --radius-sm: 10px;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* ─── Ambient Background ─── */
+        body::before {
+            content: '';
+            position: fixed;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(ellipse at 20% 50%, rgba(99,102,241,0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 80% 20%, rgba(6,182,212,0.06) 0%, transparent 50%),
+                        radial-gradient(ellipse at 50% 80%, rgba(139,92,246,0.05) 0%, transparent 50%);
+            z-index: -1;
+            animation: ambientShift 20s ease-in-out infinite alternate;
+        }
+
+        @keyframes ambientShift {
+            0% { transform: translate(0, 0) rotate(0deg); }
+            100% { transform: translate(-3%, 3%) rotate(2deg); }
+        }
+
+        /* ─── Header ─── */
+        .header {
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-glass);
+            backdrop-filter: blur(20px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(10, 14, 26, 0.85);
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .logo {
+            width: 44px;
+            height: 44px;
+            background: var(--gradient-primary);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 18px;
+            color: white;
+            box-shadow: var(--shadow-glow);
+        }
+
+        .brand h1 {
+            font-size: 22px;
+            font-weight: 700;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.5px;
+        }
+
+        .brand p {
+            font-size: 12px;
+            color: var(--text-muted);
+            font-weight: 400;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            background: rgba(16, 185, 129, 0.1);
+            border: 1px solid rgba(16, 185, 129, 0.2);
+            border-radius: 100px;
+            font-size: 13px;
+            color: var(--accent-emerald);
+            font-weight: 500;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent-emerald);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16,185,129,0.4); }
+            50% { opacity: 0.8; box-shadow: 0 0 0 6px rgba(16,185,129,0); }
+        }
+
+        .refresh-btn {
+            padding: 8px 20px;
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: 100px;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-size: 13px;
+            font-family: 'Inter', sans-serif;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .refresh-btn:hover {
+            background: rgba(99, 102, 241, 0.1);
+            border-color: var(--border-glow);
+            color: var(--accent-indigo);
+        }
+
+        /* ─── Stats Bar ─── */
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 16px;
+            padding: 24px 40px;
+        }
+
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius);
+            padding: 20px 24px;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--gradient-primary);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .stat-card:hover::before { opacity: 1; }
+        .stat-card:hover { border-color: var(--border-glow); box-shadow: var(--shadow-glow); }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+
+        .stat-value {
+            font-size: 28px;
+            font-weight: 700;
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--gradient-primary);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .stat-sub {
+            font-size: 12px;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        /* ─── Dashboard Grid ─── */
+        .dashboard {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 0 40px 40px;
+        }
+
+        .card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius);
+            padding: 28px;
+            backdrop-filter: blur(10px);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--border-glow);
+            box-shadow: var(--shadow-glow);
+            transform: translateY(-2px);
+        }
+
+        .card.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+        .card-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card-title .icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+        }
+
+        .card-badge {
+            font-size: 11px;
+            padding: 4px 10px;
+            border-radius: 100px;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .badge-indigo { background: rgba(99,102,241,0.15); color: var(--accent-indigo); }
+        .badge-cyan { background: rgba(6,182,212,0.15); color: var(--accent-cyan); }
+        .badge-emerald { background: rgba(16,185,129,0.15); color: var(--accent-emerald); }
+        .badge-amber { background: rgba(245,158,11,0.15); color: var(--accent-amber); }
+        .badge-rose { background: rgba(244,63,94,0.15); color: var(--accent-rose); }
+        .badge-violet { background: rgba(139,92,246,0.15); color: var(--accent-violet); }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 280px;
+        }
+
+        /* ─── Anomaly Table ─── */
+        .anomaly-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 6px;
+        }
+
+        .anomaly-table th {
+            text-align: left;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-muted);
+            padding: 8px 12px;
+            font-weight: 500;
+        }
+
+        .anomaly-table td {
+            padding: 10px 12px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            background: var(--bg-glass);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .anomaly-table tr td:first-child { border-radius: 8px 0 0 8px; }
+        .anomaly-table tr td:last-child { border-radius: 0 8px 8px 0; }
+
+        .severity-high { color: var(--accent-rose); font-weight: 600; }
+        .severity-medium { color: var(--accent-amber); font-weight: 600; }
+        .severity-low { color: var(--accent-emerald); font-weight: 600; }
+
+        /* ─── Node Metrics Grid ─── */
+        .node-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 12px;
+        }
+
+        .node-card {
+            background: var(--bg-glass);
+            border: 1px solid var(--border-glass);
+            border-radius: var(--radius-sm);
+            padding: 16px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .node-card:hover {
+            border-color: var(--border-glow);
+            background: rgba(99,102,241,0.05);
+        }
+
+        .node-id {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--accent-indigo);
+            font-family: 'JetBrains Mono', monospace;
+            margin-bottom: 10px;
+        }
+
+        .node-metric {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 11px;
+            padding: 3px 0;
+        }
+
+        .node-metric-label { color: var(--text-muted); }
+        .node-metric-value { color: var(--text-primary); font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+
+        .trust-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255,255,255,0.05);
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+
+        .trust-fill {
+            height: 100%;
+            border-radius: 2px;
+            transition: width 1s ease, background 0.5s ease;
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 1200px) {
+            .dashboard { grid-template-columns: 1fr; }
+            .stats-bar { grid-template-columns: repeat(3, 1fr); }
+            .node-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 768px) {
+            .header { padding: 16px 20px; }
+            .stats-bar { padding: 16px 20px; grid-template-columns: repeat(2, 1fr); }
+            .dashboard { padding: 0 20px 20px; }
+            .node-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        /* ─── Loading Animation ─── */
+        .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 200px;
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .loading::after {
+            content: '';
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border-glass);
+            border-top-color: var(--accent-indigo);
+            border-radius: 50%;
+            margin-left: 10px;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-left">
+            <div class="logo">⊕</div>
+            <div class="brand">
+                <h1>ORBIT</h1>
+                <p>Network Intelligence Dashboard</p>
+            </div>
+        </div>
+        <div class="header-right">
+            <div class="status-badge">
+                <span class="status-dot"></span>
+                <span id="statusText">Connecting...</span>
+            </div>
+            <button class="refresh-btn" onclick="refreshAll()">↻ Refresh</button>
+        </div>
+    </header>
+
+    <!-- Stats Bar -->
+    <div class="stats-bar">
+        <div class="stat-card">
+            <div class="stat-label">Packet Delivery Ratio</div>
+            <div class="stat-value" id="pdrValue">—</div>
+            <div class="stat-sub">Target: 0.984</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Mean Latency</div>
+            <div class="stat-value" id="latencyValue">—</div>
+            <div class="stat-sub">ms (E2E)</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Blocks Formed</div>
+            <div class="stat-value" id="blocksValue">—</div>
+            <div class="stat-sub">Adaptive 5–20</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Active Nodes</div>
+            <div class="stat-value" id="nodesValue">—</div>
+            <div class="stat-sub" id="nodesSubtext">IoT + Edge + Block</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Network Load</div>
+            <div class="stat-value" id="loadValue">—</div>
+            <div class="stat-sub">ρ (smoothed)</div>
+        </div>
+    </div>
+
+    <!-- Dashboard Grid -->
+    <div class="dashboard">
+        <!-- Token Distribution -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="icon" style="background:rgba(99,102,241,0.15)">🪙</span>
+                    Token Distribution
+                </div>
+                <span class="card-badge badge-indigo">Performance-Based</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="tokenChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Packets Sent/Received -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="icon" style="background:rgba(6,182,212,0.15)">📦</span>
+                    Packets Sent & Received
+                </div>
+                <span class="card-badge badge-cyan">Per Node</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="packetChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Trust Score Evolution -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="icon" style="background:rgba(16,185,129,0.15)">🛡️</span>
+                    Trust Score Evolution
+                </div>
+                <span class="card-badge badge-emerald">Real-Time</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="trustChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Adaptive Threshold & Network Load -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="icon" style="background:rgba(139,92,246,0.15)">📊</span>
+                    Adaptive Threshold vs Load
+                </div>
+                <span class="card-badge badge-violet">θ(t) / ρ(t)</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="thresholdChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Block Formation Rate -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="icon" style="background:rgba(245,158,11,0.15)">⛓️</span>
+                    Block Formation
+                </div>
+                <span class="card-badge badge-amber">Adaptive Size</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="blockChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Delivery Success Rate -->
+        <div class="card">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="icon" style="background:rgba(244,63,94,0.15)">✅</span>
+                    Delivery Success Rate
+                </div>
+                <span class="card-badge badge-rose">PDR</span>
+            </div>
+            <div class="chart-container">
+                <canvas id="successChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Node Metrics Table -->
+        <div class="card full-width">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="icon" style="background:rgba(6,182,212,0.15)">📡</span>
+                    Node Metrics Table (NMT)
+                </div>
+                <span class="card-badge badge-cyan">UCB1 Routing Scores</span>
+            </div>
+            <div class="node-grid" id="nodeGrid">
+                <div class="loading">Loading node metrics</div>
+            </div>
+        </div>
+
+        <!-- Anomaly Detection Log -->
+        <div class="card full-width">
+            <div class="card-header">
+                <div class="card-title">
+                    <span class="icon" style="background:rgba(244,63,94,0.15)">⚠️</span>
+                    Anomaly Detection Log
+                </div>
+                <span class="card-badge badge-rose">4-Condition Composite</span>
+            </div>
+            <div id="anomalyContainer">
+                <table class="anomaly-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Node</th>
+                            <th>Drop Rate</th>
+                            <th>Invalid Sig</th>
+                            <th>Latency Dev</th>
+                            <th>Consistency</th>
+                            <th>Score</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="anomalyBody">
+                        <tr><td colspan="8" style="text-align:center;color:var(--text-muted)">No anomalies detected</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:8081';
+        const EDGE_BASE = 'http://localhost:9090';
+
+        // Chart.js global defaults
+        Chart.defaults.color = '#94a3b8';
+        Chart.defaults.borderColor = 'rgba(255,255,255,0.05)';
+        Chart.defaults.font.family = "'Inter', sans-serif";
+        Chart.defaults.font.size = 12;
+        Chart.defaults.plugins.legend.labels.padding = 16;
+        Chart.defaults.plugins.legend.labels.usePointStyle = true;
+
+        const chartInstances = {};
+        const COLORS = {
+            indigo: { bg: 'rgba(99,102,241,0.5)', border: '#6366f1', bgLight: 'rgba(99,102,241,0.1)' },
+            cyan: { bg: 'rgba(6,182,212,0.5)', border: '#06b6d4', bgLight: 'rgba(6,182,212,0.1)' },
+            emerald: { bg: 'rgba(16,185,129,0.5)', border: '#10b981', bgLight: 'rgba(16,185,129,0.1)' },
+            amber: { bg: 'rgba(245,158,11,0.5)', border: '#f59e0b', bgLight: 'rgba(245,158,11,0.1)' },
+            rose: { bg: 'rgba(244,63,94,0.5)', border: '#f43f5e', bgLight: 'rgba(244,63,94,0.1)' },
+            violet: { bg: 'rgba(139,92,246,0.5)', border: '#8b5cf6', bgLight: 'rgba(139,92,246,0.1)' },
+        };
+        const NODE_COLORS = [COLORS.indigo, COLORS.cyan, COLORS.emerald, COLORS.amber, COLORS.violet];
+
+        function createChart(canvasId, config) {
+            if (chartInstances[canvasId]) chartInstances[canvasId].destroy();
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            chartInstances[canvasId] = new Chart(ctx, config);
+            return chartInstances[canvasId];
+        }
+
+        // ─── Fetch Helpers ─────────────────────────────────────────
+        async function safeFetch(url) {
+            try {
+                const res = await axios.get(url);
+                return res.data;
+            } catch { return null; }
+        }
+
+        // ─── Main Data Load ────────────────────────────────────────
+        async function refreshAll() {
+            try {
+                const [tokens, blocks, rate, nmt, trustHist, anomalies, networkLoad, blockLog, simStatus] = await Promise.all([
+                    safeFetch(`${API_BASE}/getTokens`),
+                    safeFetch(`${API_BASE}/getBlocks`),
+                    safeFetch(`${API_BASE}/getRate`),
+                    safeFetch(`${API_BASE}/getNodeMetrics`),
+                    safeFetch(`${API_BASE}/getTrustScores`),
+                    safeFetch(`${API_BASE}/getAnomalies`),
+                    safeFetch(`${API_BASE}/getNetworkLoad`),
+                    safeFetch(`${API_BASE}/getBlockLog`),
+                    safeFetch(`${API_BASE}/getSimulationStatus`),
+                ]);
+
+                updateStatusBar(tokens, blocks, rate, networkLoad, simStatus);
+                updateTokenChart(tokens);
+                updatePacketChart(blocks);
+                updateTrustChart(trustHist);
+                updateThresholdChart(networkLoad);
+                updateBlockChart(blockLog, blocks);
+                updateSuccessChart(rate);
+                updateNodeGrid(nmt);
+                updateAnomalyTable(anomalies);
+
+                document.getElementById('statusText').textContent = 'Live';
+            } catch (err) {
+                console.error('Refresh error:', err);
+                document.getElementById('statusText').textContent = 'Reconnecting...';
+            }
+        }
+
+        // ─── Stats Bar Update ──────────────────────────────────────
+        function updateStatusBar(tokens, blocks, rate, networkLoad, simStatus) {
+            const totalPackets = simStatus?.packetsSent || 70;
+            const delivered = parseInt(rate) || 0;
+            const pdr = totalPackets > 0 ? (delivered / totalPackets).toFixed(3) : '—';
+            document.getElementById('pdrValue').textContent = pdr;
+
+            // Mean latency from NMT or estimate
+            document.getElementById('latencyValue').textContent = networkLoad?.current ? 
+                Math.round(100 + networkLoad.current.rho * 400) : '—';
+
+            document.getElementById('blocksValue').textContent = blocks?.length || blockLog?.length || '0';
+
+            const nodeCount = simStatus?.connectedNodes || 0;
+            document.getElementById('nodesValue').textContent = `${nodeCount + 2}`;
+            document.getElementById('nodesSubtext').textContent = `${nodeCount} IoT + 1 Edge + 1 Block`;
+
+            const rho = networkLoad?.current?.rho;
+            document.getElementById('loadValue').textContent = rho != null ? rho.toFixed(3) : '—';
+        }
+
+        // ─── Token Distribution Chart ──────────────────────────────
+        function updateTokenChart(tokens) {
+            if (!tokens || tokens.length === 0) return;
+            const labels = tokens.map(t => t[0]);
+            const values = tokens.map(t => parseInt(t[1]));
+            const bgColors = labels.map((_, i) => NODE_COLORS[i % NODE_COLORS.length].bg);
+            const borderColors = labels.map((_, i) => NODE_COLORS[i % NODE_COLORS.length].border);
+
+            createChart('tokenChart', {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Tokens (Performance-Based)',
+                        data: values,
+                        backgroundColor: bgColors,
+                        borderColor: borderColors,
+                        borderWidth: 2,
+                        borderRadius: 8,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.03)' } }, x: { grid: { display: false } } },
+                },
+            });
+        }
+
+        // ─── Packets Chart ─────────────────────────────────────────
+        function updatePacketChart(blocks) {
+            if (!blocks || blocks.length === 0) return;
+            const frequency = [];
+            blocks.forEach(b => (b.tx || []).forEach(tx => {
+                try { frequency.push(JSON.parse(tx)); } catch {}
+            }));
+
+            const counts = {};
+            frequency.forEach(item => {
+                counts[item.src] = counts[item.src] || { src: 0, dest: 0 };
+                counts[item.dest] = counts[item.dest] || { src: 0, dest: 0 };
+                counts[item.src].src++;
+                counts[item.dest].dest++;
+            });
+
+            const labels = Object.keys(counts).filter(k => counts[k].dest > 0 || counts[k].src > 0);
+            createChart('packetChart', {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [
+                        { label: 'Sent', data: labels.map(l => counts[l]?.src || 0), backgroundColor: COLORS.emerald.bg, borderColor: COLORS.emerald.border, borderWidth: 2, borderRadius: 6 },
+                        { label: 'Received', data: labels.map(l => counts[l]?.dest || 0), backgroundColor: COLORS.cyan.bg, borderColor: COLORS.cyan.border, borderWidth: 2, borderRadius: 6 },
+                    ],
+                },
+                options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.03)' } }, x: { grid: { display: false } } } },
+            });
+        }
+
+        // ─── Trust Score Chart ─────────────────────────────────────
+        function updateTrustChart(trustHist) {
+            if (!trustHist) return;
+            const datasets = [];
+            let i = 0;
+            for (const [nodeAddr, history] of Object.entries(trustHist)) {
+                const color = NODE_COLORS[i % NODE_COLORS.length];
+                datasets.push({
+                    label: nodeAddr,
+                    data: history.map(h => ({ x: new Date(h.time).toLocaleTimeString(), y: h.score })),
+                    borderColor: color.border,
+                    backgroundColor: color.bgLight,
+                    fill: false,
+                    tension: 0.4,
+                    pointRadius: 2,
+                    borderWidth: 2,
+                });
+                i++;
+            }
+
+            if (datasets.length === 0) {
+                // Show initial trust scores
+                const nodes = ['10.0.0.1', '10.0.0.2', '10.0.0.3', '10.0.0.4', '10.0.0.5'];
+                nodes.forEach((n, idx) => {
+                    datasets.push({
+                        label: n,
+                        data: [{ x: 'Start', y: 0.8 }],
+                        borderColor: NODE_COLORS[idx].border,
+                        fill: false,
+                        tension: 0.4,
+                        pointRadius: 4,
+                        borderWidth: 2,
+                    });
+                });
+            }
+
+            createChart('trustChart', {
+                type: 'line',
+                data: { datasets },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: {
+                        y: { min: 0, max: 1, grid: { color: 'rgba(255,255,255,0.03)' } },
+                        x: { grid: { display: false } },
+                    },
+                    plugins: { legend: { position: 'bottom' } },
+                },
+            });
+        }
+
+        // ─── Adaptive Threshold Chart ──────────────────────────────
+        function updateThresholdChart(networkLoad) {
+            const history = networkLoad?.history || [];
+            const labels = history.map(h => new Date(h.time).toLocaleTimeString());
+            const rhoData = history.map(h => h.rho);
+            const thetaData = history.map(h => h.theta);
+
+            if (labels.length === 0) {
+                labels.push('Start');
+                rhoData.push(0);
+                thetaData.push(0.5);
+            }
+
+            createChart('thresholdChart', {
+                type: 'line',
+                data: {
+                    labels,
+                    datasets: [
+                        { label: 'ρ (Network Load)', data: rhoData, borderColor: COLORS.rose.border, backgroundColor: COLORS.rose.bgLight, fill: true, tension: 0.4, borderWidth: 2, pointRadius: 1 },
+                        { label: 'θ (Threshold)', data: thetaData, borderColor: COLORS.violet.border, backgroundColor: COLORS.violet.bgLight, fill: true, tension: 0.4, borderWidth: 2, pointRadius: 1 },
+                    ],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    scales: { y: { min: 0, max: 1, grid: { color: 'rgba(255,255,255,0.03)' } }, x: { grid: { display: false }, display: labels.length > 1 } },
+                    plugins: { legend: { position: 'bottom' } },
+                },
+            });
+        }
+
+        // ─── Block Formation Chart ─────────────────────────────────
+        function updateBlockChart(blockLog, blocks) {
+            const data = blockLog || [];
+            if (data.length === 0 && blocks?.length > 0) {
+                // Use blockchain blocks
+                const timestamps = blocks.map(b => parseInt(b.timestamp));
+                const perMinute = {};
+                timestamps.forEach(ts => {
+                    const d = new Date(ts);
+                    const key = `${d.getHours().toString().padStart(2,'0')}:${d.getMinutes().toString().padStart(2,'0')}`;
+                    perMinute[key] = (perMinute[key] || 0) + 1;
+                });
+                createChart('blockChart', {
+                    type: 'bar',
+                    data: {
+                        labels: Object.keys(perMinute),
+                        datasets: [{ label: 'Blocks/Min', data: Object.values(perMinute), backgroundColor: COLORS.amber.bg, borderColor: COLORS.amber.border, borderWidth: 2, borderRadius: 6 }],
+                    },
+                    options: { responsive: true, maintainAspectRatio: false, scales: { y: { beginAtZero: true, grid: { color: 'rgba(255,255,255,0.03)' } }, x: { grid: { display: false } } } },
+                });
+                return;
+            }
+
+            const labels = data.map((_, i) => `#${i + 1}`);
+            const sizes = data.map(b => b.size || b.adaptiveSize || 10);
+
+            createChart('blockChart', {
+                type: 'bar',
+                data: {
+                    labels,
+                    datasets: [{
+                        label: 'Block Size (Adaptive)',
+                        data: sizes,
+                        backgroundColor: sizes.map(s => s <= 8 ? COLORS.rose.bg : s <= 14 ? COLORS.amber.bg : COLORS.emerald.bg),
+                        borderColor: sizes.map(s => s <= 8 ? COLORS.rose.border : s <= 14 ? COLORS.amber.border : COLORS.emerald.border),
+                        borderWidth: 2,
+                        borderRadius: 6,
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: { legend: { display: false } },
+                    scales: { y: { min: 0, max: 25, grid: { color: 'rgba(255,255,255,0.03)' } }, x: { grid: { display: false } } },
+                },
+            });
+        }
+
+        // ─── Success Rate Chart ────────────────────────────────────
+        function updateSuccessChart(rate) {
+            const delivered = parseInt(rate) || 0;
+            const total = 70;
+            const failed = Math.max(0, total - delivered);
+
+            createChart('successChart', {
+                type: 'doughnut',
+                data: {
+                    labels: ['Delivered', 'Failed/In-Transit'],
+                    datasets: [{
+                        data: [delivered, failed],
+                        backgroundColor: [COLORS.emerald.bg, COLORS.rose.bg],
+                        borderColor: [COLORS.emerald.border, COLORS.rose.border],
+                        borderWidth: 2,
+                        cutout: '70%',
+                    }],
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { position: 'bottom' },
+                    },
+                },
+            });
+        }
+
+        // ─── Node Metrics Grid ─────────────────────────────────────
+        function updateNodeGrid(nmt) {
+            const grid = document.getElementById('nodeGrid');
+            if (!nmt || Object.keys(nmt).length === 0) {
+                // Show default nodes
+                const defaultNodes = ['10.0.0.1', '10.0.0.2', '10.0.0.3', '10.0.0.4', '10.0.0.5'];
+                grid.innerHTML = defaultNodes.map((addr, i) => `
+                    <div class="node-card">
+                        <div class="node-id">${addr}</div>
+                        <div class="node-metric"><span class="node-metric-label">Trust</span><span class="node-metric-value">0.800</span></div>
+                        <div class="node-metric"><span class="node-metric-label">Success</span><span class="node-metric-value">80.0%</span></div>
+                        <div class="node-metric"><span class="node-metric-label">Latency</span><span class="node-metric-value">100ms</span></div>
+                        <div class="node-metric"><span class="node-metric-label">Drop</span><span class="node-metric-value">0.0%</span></div>
+                        <div class="node-metric"><span class="node-metric-label">Packets</span><span class="node-metric-value">0</span></div>
+                        <div class="trust-bar"><div class="trust-fill" style="width:80%;background:var(--accent-emerald)"></div></div>
+                    </div>
+                `).join('');
+                return;
+            }
+
+            grid.innerHTML = Object.entries(nmt).map(([addr, m], i) => {
+                const trustPct = (m.trust_score * 100).toFixed(0);
+                const trustColor = m.trust_score > 0.6 ? 'var(--accent-emerald)' : m.trust_score > 0.3 ? 'var(--accent-amber)' : 'var(--accent-rose)';
+                const status = m.is_malicious ? '🚫 MALICIOUS' : '';
+                return `
+                    <div class="node-card" style="${m.is_malicious ? 'border-color: var(--accent-rose)' : ''}">
+                        <div class="node-id">${addr} ${status}</div>
+                        <div class="node-metric"><span class="node-metric-label">Trust</span><span class="node-metric-value" style="color:${trustColor}">${m.trust_score.toFixed(3)}</span></div>
+                        <div class="node-metric"><span class="node-metric-label">Success</span><span class="node-metric-value">${(m.success_rate * 100).toFixed(1)}%</span></div>
+                        <div class="node-metric"><span class="node-metric-label">Latency</span><span class="node-metric-value">${Math.round(m.avg_latency)}ms</span></div>
+                        <div class="node-metric"><span class="node-metric-label">Drop</span><span class="node-metric-value">${(m.drop_rate * 100).toFixed(1)}%</span></div>
+                        <div class="node-metric"><span class="node-metric-label">Packets</span><span class="node-metric-value">${m.packets_forwarded}</span></div>
+                        <div class="trust-bar"><div class="trust-fill" style="width:${trustPct}%;background:${trustColor}"></div></div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // ─── Anomaly Table ─────────────────────────────────────────
+        function updateAnomalyTable(anomalies) {
+            const tbody = document.getElementById('anomalyBody');
+            if (!anomalies || anomalies.length === 0) {
+                tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;color:var(--text-muted)">✅ No anomalies detected — All nodes healthy</td></tr>';
+                return;
+            }
+
+            tbody.innerHTML = anomalies.slice(-15).reverse().map(a => {
+                const time = new Date(a.timestamp).toLocaleTimeString();
+                const severityClass = a.compositeScore >= 0.5 ? 'severity-high' : a.compositeScore >= 0.3 ? 'severity-medium' : 'severity-low';
+                const status = a.isMalicious ? '<span class="severity-high">MALICIOUS</span>' : '<span class="severity-medium">WARNING</span>';
+                return `<tr>
+                    <td>${time}</td>
+                    <td>${a.nodeAddr}</td>
+                    <td>${a.anomalies.A1 ? '⚠️ YES' : '—'}</td>
+                    <td>${a.anomalies.A2 ? '⚠️ YES' : '—'}</td>
+                    <td>${a.anomalies.A3 ? '⚠️ YES' : '—'}</td>
+                    <td>${a.anomalies.A4 ? '⚠️ YES' : '—'}</td>
+                    <td class="${severityClass}">${a.compositeScore.toFixed(3)}</td>
+                    <td>${status}</td>
+                </tr>`;
+            }).join('');
+        }
+
+        // ─── Auto-refresh ──────────────────────────────────────────
+        refreshAll();
+        setInterval(refreshAll, 5000);
+    </script>
+</body>
+</html>
