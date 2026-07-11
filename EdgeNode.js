@@ -395,6 +395,19 @@ function epochTick() {
             if (hist.forwardCounts.length > 20) hist.forwardCounts.shift();
         }
         updateTrustScore(addr);
+
+        // Sync NMT snapshot to blockchain smart contract per Section 2.1.5 / Table 5
+        if (contract && typeof contract.updateNMT === 'function') {
+            const nmt = NMT[addr];
+            contract.updateNMT(
+                addr,
+                Math.round(nmt.success_rate * 1000),
+                Math.round(nmt.avg_latency),
+                Math.round(nmt.drop_rate * 1000),
+                Math.round(nmt.trust_score * 1000),
+                nmt.packets_forwarded
+            ).catch(() => {});
+        }
     });
     console.log(`[EdgeNode] Epoch ${epoch} — ρ=${rhoSmooth.toFixed(3)}, θ=${computeAdaptiveThreshold().toFixed(3)}, B=${computeAdaptiveBlockSize()}`);
 }
